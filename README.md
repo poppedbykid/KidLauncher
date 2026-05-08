@@ -28,3 +28,5 @@ python launcher.py
 Credits
 Made by poppedbykid
 Built using minecraft-launcher-lib
+
+discord is poppedbyk1d for any questions/support
