@@ -1,0 +1,11 @@
+{
+  "name": "kid-launcher-engine",
+  "version": "1.0.0",
+  "description": "Kid Launcher High-Performance Core",
+
+  "main": "engine.js",
+  "dependencies": {
+    "minecraft-launcher-core": "^3.2.2",
+    "axios": "^1.6.2"
+  }
+}

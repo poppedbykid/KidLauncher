@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.env
+
+# Build & Bundling
+build/
+dist/
+dist_*/
+*.spec
+*.exe
+
+# Javascript / Node
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Game Data & Logs
+.minecraft/
+instances/
+logs/
+*.log
+
+# Project Specific
+accounts.json
+settings.json
+
+# IDEs
+.vscode/
+.idea/
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace

@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><title>KidLauncher</title>
+<link rel="stylesheet" href="/ui/style.css">
+</head><body>
+
+<div id="sidebar">
+  <button class="logo-mark">K</button>
+  <button class="nb active" id="n-home" onclick="nav('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span class="nav-tip">Library</span></button>
+  <button class="nb" id="n-mods" onclick="nav('mods')"><svg viewBox="0 0 24 24"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg><span class="nav-tip">Mods</span></button>
+  <button class="nb" id="n-browse" onclick="nav('browse')"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span class="nav-tip">Browse</span></button>
+  <button class="nb" id="n-settings" onclick="nav('settings')"><svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg><span class="nav-tip">Settings</span></button>
+  <div class="sb-spacer"></div>
+  <div id="user-chip" onclick="nav('settings')">?</div>
+</div>
+
+<div id="main">
+
+<!-- HOME -->
+<div class="view active" id="view-home">
+  <div id="home-bg"></div>
+  <div id="home-inner">
+    <div id="inst-info-bar">
+      <div id="inst-eyebrow">Now Playing</div>
+      <div id="inst-title">Select an instance</div>
+      <div id="inst-sub"><span style="color:var(--dim)">Click an instance below to get started</span></div>
+    </div>
+    <div id="hero-actions">
+      <button id="play-btn" onclick="launchCurrent()">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor"><path d="M8 5v14l11-7z"/></svg>
+        PLAY
+      </button>
+      <button class="hero-pill" onclick="nav('mods')">🧩 Mods</button>
+      <button class="hero-pill" onclick="document.getElementById('pack-in').click()">📦 Import Pack</button>
+      <input type="file" id="pack-in" accept=".mrpack" hidden onchange="importModpack(this.files[0])">
+    </div>
+    <div id="inst-strip"></div>
+  </div>
+  <div id="console-drawer">
+    <div id="console-head">
+      <span>Console</span>
+      <button class="btn btn-ghost btn-xs" onclick="document.getElementById('console-log').innerHTML=''">Clear</button>
+    </div>
+    <div id="console-log"></div>
+  </div>
+</div>
+
+<!-- MODS -->
+<div class="view hidden" id="view-mods">
+  <div id="mods-wrap">
+    <div id="mods-left">
+      <div><div class="pg-title" id="mods-pg-title">Mods</div><div class="pg-sub">Manage mods for this instance</div></div>
+      <div class="toolbar">
+        <input type="text" id="mod-filter" placeholder="🔍 Filter mods...">
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('file-in').click()">+ Upload</button>
+        <button class="btn btn-ghost btn-sm" id="upd-btn" onclick="checkUpdates()">🔄 Updates</button>
+        <button class="btn btn-ghost btn-sm" onclick="api('/open_folder',{instance:current?.name})">📁</button>
+        <input type="file" id="file-in" accept=".jar" multiple hidden>
+      </div>
+      <div id="upd-panel"></div>
+      <div id="drop-z">📦 Drag &amp; drop .jar mods here · or click to browse</div>
+      <div id="mod-list"><div style="color:var(--dim);font-size:12px;text-align:center;padding:24px;">Select an instance first</div></div>
+    </div>
+    <div id="mods-right">
+      <div style="font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.8px;text-transform:uppercase;">Launch</div>
+      <div style="font-size:13px;font-weight:700;" id="sel-lbl">No instance</div>
+      <div style="font-size:11px;color:var(--dim);" id="sel-meta">—</div>
+      <button id="launch-btn-big" onclick="launchCurrent()">▶ PLAY</button>
+      <div class="s-row"><span class="s-lbl">Username</span><input type="text" id="username" placeholder="Player" style="width:110px;text-align:right;"></div>
+      <div class="s-row">
+        <span class="s-lbl">RAM</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="range" id="ram-slider" min="1" max="16" value="4" oninput="document.getElementById('ram-val').innerText=this.value+'G'">
+          <span class="s-val" id="ram-val">4G</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BROWSE -->
+<div class="view hidden" id="view-browse">
+  <div id="browse-inner">
+    <div><div class="pg-title">Browse Mods</div><div class="pg-sub" style="margin-bottom:16px;">Search Modrinth — thousands of mods</div></div>
+    <div id="srch-bar">
+      <input type="text" id="srch-in" placeholder="Search (sodium, iris, lithium...)" onkeydown="if(event.key==='Enter')doSearch()">
+      <button class="btn btn-primary" onclick="doSearch()">Search</button>
+    </div>
+    <div id="srch-res"></div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="view hidden" id="view-settings">
+  <div id="sett-inner">
+    <div class="pg-title">Settings</div>
+    <div class="sett-card">
+      <div class="sett-head">🎮 Account</div>
+      <div id="acct-status" style="margin-bottom:14px;font-size:12px;"></div>
+      <div class="f-grp"><label class="f-lbl">Offline Username</label><input type="text" id="settings-username" placeholder="Player"></div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn btn-primary" onclick="msLogin()">🔑 Microsoft Login</button>
+        <button class="btn btn-ghost" onclick="logout()">Sign Out</button>
+      </div>
+    </div>
+    <div class="sett-card dev-only">
+      <div class="sett-head">⚙️ Azure Client ID</div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:12px;">portal.azure.com → App registrations · Redirect: <code style="color:#7289da;">http://localhost:29512/auth/callback</code></div>
+      <div class="f-grp"><label class="f-lbl">Client ID</label><input type="text" id="cid" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></div>
+      <button class="btn btn-ghost" onclick="saveSettings()">Save</button>
+    </div>
+    <div class="sett-card dev-only">
+      <div class="sett-head">🚫 Blacklist</div>
+      <div class="f-grp"><label class="f-lbl">GitHub Gist raw URL</label><input type="text" id="blurl" placeholder="https://gist.githubusercontent.com/..."></div>
+      <button class="btn btn-ghost" onclick="saveSettings()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="status-wrap"><div id="prog-bar"></div></div>
+<div id="status-bar"><span id="status-txt">Ready</span><span id="prog-pct">0%</span></div>
+</div>
+
+<!-- Modal -->
+<div id="modal-bg">
+  <div id="modal">
+    <div class="modal-h">New Instance</div>
+    <div class="f-grp"><label class="f-lbl">Name</label><input type="text" id="inst-name" placeholder="My Instance"></div>
+    <div class="f-grp"><label class="f-lbl">Minecraft Version</label>
+      <select id="inst-version">
+        <option>1.21.4</option><option>1.21.1</option><option>1.21</option>
+        <option>1.20.4</option><option selected>1.20.1</option><option>1.20</option>
+        <option>1.19.4</option><option>1.19.2</option><option>1.18.2</option><option>1.16.5</option>
+      </select>
+    </div>
+    <div class="f-grp"><label class="f-lbl">Loader</label>
+      <select id="inst-loader"><option value="fabric">Fabric</option><option value="vanilla">Vanilla</option><option value="quilt">Quilt</option></select>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="createInstance()">Create</button>
+    </div>
+  </div>
+</div>
+
+<script src="/ui/app.js"></script>
+</body></html>
